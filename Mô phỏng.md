@@ -51,3 +51,4 @@ Gói tin SET CONFIG cùng với FLOW MOD và PACKET OUT:
 Mô hình mạng trên OpenDayLight: 
 
 <img width="780" height="418" alt="image" src="https://github.com/user-attachments/assets/8f1e3d9a-acd1-4546-bbc7-0323a42042a0" />
+
