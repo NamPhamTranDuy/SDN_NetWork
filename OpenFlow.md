@@ -19,3 +19,17 @@ Quá trình xử lý pipeline của OpenFlow Switch:
 
 <img width="499" height="315" alt="image" src="https://github.com/user-attachments/assets/2772d644-dfdd-47be-9b84-7e09e997e675" />
 
+QUÁ TRÌNH KẾT NỐI GIỮA CONTROLLER VÀ OVS QUA OPENFLOW PROTOCOL:
+
+<img width="432" height="558" alt="image" src="https://github.com/user-attachments/assets/44b5cdb8-1d45-496d-8bb6-e18054baf85c" />
+
+ + OpenFlow cho phép lập trình và điều khiển mạng dựa trên các flow, giúp Controller quản lý lưu lượng ở mức chi tiết và linh hoạt theo thời gian thực. Controller có thể thêm, cập nhật, chỉnh sửa và xóa Flow Entry trên Switch.
+
+ + Quá trình giao tiếp cơ bản gồm: Hello → Feature Request/Reply → Set Config → Flow Management. Khi Switch nhận gói tin không có Flow Entry phù hợp, nó gửi PACKET_IN đến Controller để xử lý. Controller phản hồi bằng PACKET_OUT và sử dụng FLOW_MOD để thêm, sửa hoặc xóa các Flow Entry, giúp mạng liên tục thích ứng và tối ưu lưu lượng.
+
+3 dạng bản tin quan trọng:
+ + Controller-to-Switch Messages:Các thông điệp này được khởi tạo bởi Controller và gửi đến Switch để quản lý, điều khiển và kiểm tra trạng thái của Switch. Controller sử dụng các thông điệp này để yêu cầu Switch thực hiện một số tác vụ như cài đặt, sửa đổi hoặc xóa các quy tắc flow, thay đổi các tham số cấu hình hoặc lấy thông tin trạng thái của Switch. Mục đích của các thông điệp này là đảm bảo Controller có thể kiểm soát toàn bộ hoạt động của Switch và quản lý lưu lượng dữ liệu trong mạng một cách hiệu quả (OFPT_FEATURE_REQUEST/REPLY, OFPT_SET_CONFIG,  OFPT_FLOW_MOD, OFPT_PACKET_OUT, BARRIER REQUEST/REPLY).
+
+ + Asynchronous Messages:  được gửi mà không có yêu cầu từ Controller. Switch gửi các thông điệp Asynchronous tới Controller để thông báo sự kiện như gói tin đến, thay đổi trạng thái của Switch, hoặc lỗi. Gói tin thường gặp nhất đó là gói tin Packet-in dùng đểchuyển giao quyền kiểm soát của gói tin cho Controller. Mọi gói tin được chuyển tới cổng dự trữ CONTROLLER thông qua một mục flow hoặc mục flow-miss đều sẽ kích hoạt sựkiện Packet-in.
+
+ + Symmetric: Các thông điệp Symmetric được gửi mà không yêu cầu trước từ bất kỳ bên nào, có thể được gửi từ Switch hoặc Controller. Gói tin thường gặp nhất đó là gói tin Hello dùng cho việc trao đổi giữa Switch và Controller khi kết nối khởi động.
